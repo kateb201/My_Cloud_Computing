@@ -81,11 +81,14 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserBoundary login(String userEmail) {
+    public UserBoundaryEnc login(String userEmail) {
         Optional<UserEntity> existing = serviceHandler.findById(userEmail);
         if (existing.isPresent()) {
             UserEntity entity = existing.get();
-            return this.convertToBoundary(entity);
+            UserBoundary userBoundary = this.convertToBoundary(entity);
+            UserBoundaryEnc userEncBoundary = new UserBoundaryEnc(userBoundary.getEmail(),
+                    userBoundary.getName(), userBoundary.getBirthdate(), userBoundary.getRoles());
+            return userEncBoundary;
         } else {
             throw new RuntimeException("message could not be found");
         }

@@ -6,7 +6,7 @@ public interface UserService {
 
     UserBoundaryEnc createUser(UserBoundary user);
 
-    UserBoundary login(String userEmail);
+    UserBoundaryEnc login(String userEmail);
 
     // UserBoundary login(String userSpace, String userEmail);
 
