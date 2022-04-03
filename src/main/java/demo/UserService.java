@@ -1,12 +1,15 @@
 package demo;
 
-//import java.util.List;
+import java.util.List;
 
 public interface UserService {
 
     UserBoundaryEnc createUser(UserBoundary user);
 
     UserBoundaryEnc login(String userEmail);
+
+    List<UserBoundaryEnc> getAllUsersByYear(String year,
+            int size, int page);
 
     // UserBoundary login(String userSpace, String userEmail);
 

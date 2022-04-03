@@ -1,8 +1,13 @@
 package demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -107,6 +112,22 @@ public class UserServiceImplementation implements UserService {
                         entity.getLast()),
                 entity.getPassword(),
                 entity.getBirthdate(), entity.getRoles());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserBoundaryEnc> getAllUsersByYear(String year, int size, int page) {
+        List<UserEntity> entities = this.serviceHandler
+                .findAllItemsByBirthdate(year, PageRequest.of(page, size, Direction.ASC, "email"));
+
+        List<UserBoundaryEnc> rv = new ArrayList<>();
+        for (UserEntity entity : entities) {
+            UserBoundary boundary = this.convertToBoundary(entity);
+            UserBoundaryEnc boundaryEnc = new UserBoundaryEnc(boundary.getEmail(),
+                    boundary.getName(), boundary.getBirthdate(), boundary.getRoles());
+            rv.add(boundaryEnc);
+        }
+        return rv;
     }
 
 }
