@@ -4,7 +4,7 @@ package demo;
 
 public interface UserService {
 
-    UserBoundary createUser(UserBoundary user);
+    UserBoundaryEnc createUser(UserBoundary user);
 
     UserBoundary login(String userEmail);
 

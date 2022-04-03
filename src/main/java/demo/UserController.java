@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/customers", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserBoundary createNewUser(@RequestBody UserBoundary input) {
+    public UserBoundaryEnc createNewUser(@RequestBody UserBoundary input) {
         return userService.createUser(input);
     }
 

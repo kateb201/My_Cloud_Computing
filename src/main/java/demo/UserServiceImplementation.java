@@ -3,10 +3,6 @@ package demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +23,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public UserBoundary createUser(UserBoundary user) {
+    public UserBoundaryEnc createUser(UserBoundary user) {
         if (user == null) {
             throw new RuntimeException("User must not be null");
         }
@@ -36,7 +32,9 @@ public class UserServiceImplementation implements UserService {
             if (!checkDup(userEntity)) {
                 serviceHandler.save(userEntity);
                 UserBoundary userBoundary = convertToBoundary(userEntity);
-                return userBoundary;
+                UserBoundaryEnc userEncBoundary = new UserBoundaryEnc(userBoundary.getEmail(),
+                        userBoundary.getName(), userBoundary.getBirthdate(), userBoundary.getRoles());
+                return userEncBoundary;
             }
         }
         throw new RuntimeException("Cannot create user, check all attributes are correct");
