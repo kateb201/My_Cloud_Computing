@@ -2,23 +2,23 @@ package demo;
 
 public class UserBoundary {
 
-	private UserName username;
 	private String email;
+	private Name name;
 	private String password;
-	private String birthday;
-	private String role;
+	private String birthdate;
+	private String roles;
 
 	public UserBoundary() {
 
 	}
 
-	public UserBoundary(UserName username, String email,
-			String password, String birthday, String role) {
-		this.username = username;
+	public UserBoundary(String email, Name name,
+			String password, String birthdate, String roles) {
 		this.email = email;
+		this.name = name;
 		this.password = password;
-		this.birthday = birthday;
-		this.role = role;
+		this.birthdate = birthdate;
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -37,28 +37,28 @@ public class UserBoundary {
 		this.password = password;
 	}
 
-	public String getBirthday() {
-		return birthday;
+	public String getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
-	public UserName getUsername() {
-		return this.username;
+	public Name getName() {
+		return this.name;
 	}
 
-	public void setUsername(UserName username) {
-		this.username = username;
+	public void setName(Name name) {
+		this.name = name;
 	}
 
 }

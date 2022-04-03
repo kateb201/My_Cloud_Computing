@@ -7,26 +7,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER")
 public class UserEntity {
-	private String first_name;
-	private String last_name;
+	private String first;
+	private String last;
 	@Id
 	private String email;
 	private String password;
-	private String birthday;
-	private String role;
+	private String birthdate;
+	private String roles;
 
 	public UserEntity() {
 	}
 
-	public UserEntity(String first_name, String last_name, String email,
-			String password, String birthday, String role) {
+	public UserEntity(String first, String last, String email,
+			String password, String birthdate, String roles) {
 		super();
-		this.first_name = first_name;
-		this.last_name = last_name;
+		this.first = first;
+		this.last = last;
 		this.email = email;
 		this.password = password;
-		this.birthday = birthday;
-		this.role = role;
+		this.birthdate = birthdate;
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -45,36 +45,36 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public String getBirthday() {
-		return birthday;
+	public String getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 
-	public String getFirst_name() {
-		return this.first_name;
+	public String getFirst() {
+		return this.first;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirst(String first) {
+		this.first = first;
 	}
 
-	public String getLast_name() {
-		return this.last_name;
+	public String getLast() {
+		return this.last;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLast(String last) {
+		this.last = last;
 	}
 
-	public String getRole() {
-		return this.role;
+	public String getRoles() {
+		return this.roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
 }
