@@ -2,8 +2,10 @@ package demo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "USER")
 public class UserEntity {
 	private String first_name;
 	private String last_name;
@@ -24,6 +26,7 @@ public class UserEntity {
 		this.email = email;
 		this.password = password;
 		this.birthday = birthday;
+		this.role = role;
 	}
 
 	public String getEmail() {

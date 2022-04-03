@@ -25,14 +25,14 @@ public class UserServiceImplementation implements UserService {
         if (user == null) {
             throw new RuntimeException("User must not be null");
         }
-        if (assertUser(user)) {
-            UserEntity userEntity = convertToEntity(user);
-            if (!checkDup(userEntity)) {
-                serviceHandler.save(userEntity);
-                UserBoundary userBoundary = convertToBoundary(userEntity);
-                return userBoundary;
-            }
+        // if (assertUser(user)) {
+        UserEntity userEntity = convertToEntity(user);
+        if (!checkDup(userEntity)) {
+            serviceHandler.save(userEntity);
+            UserBoundary userBoundary = convertToBoundary(userEntity);
+            return userBoundary;
         }
+        // }
         throw new RuntimeException("Cannot create user, check all attributes are correct");
     }
 

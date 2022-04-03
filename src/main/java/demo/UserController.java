@@ -18,12 +18,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(path = "/customers/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/customers", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserBoundary createNewUser(@RequestBody UserBoundary input) {
         return userService.createUser(input);
     }
 
-    @RequestMapping(path = "/custumer/{userEmail}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/customers/{userEmail}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public UserBoundary login(
             @PathVariable("userEmail") String email) {
         return userService.login(email);
