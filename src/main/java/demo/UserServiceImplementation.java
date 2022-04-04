@@ -1,8 +1,6 @@
 package demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,18 +114,57 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserBoundaryEnc> getAllUsersByYear(String year, int size, int page) {
-        List<UserEntity> entities = this.serviceHandler
-                .findAllItemsByBirthdate(year, PageRequest.of(page, size, Direction.ASC, "email"));
+    public Object getAllUsersByAttr(String atrr, int size, int page) {
+        if (atrr == null) {
+            throw new RuntimeException("Search attributes must not be null");
+        }
+        switch (atrr) {
+            case "byEmailDomain":
+                List<UserBoundaryEnc> resultByDomain = searchByEmailDomain(atrr, size, page);
+                return resultByDomain;
 
+            case "byBirthYear":
+                List<UserBoundaryEnc> resultByYear = searchByBirthYear(atrr, size, page);
+                return resultByYear;
+            default:
+                return new ArrayList<>();
+        }
+    }
+
+    public List<UserBoundaryEnc> searchByEmailDomain(String domain, int size, int page) {
+        Iterable<UserEntity> entities = this.serviceHandler.findAll();
         List<UserBoundaryEnc> rv = new ArrayList<>();
+        List<UserBoundaryEnc> resultBySub = new ArrayList<>();
         for (UserEntity entity : entities) {
             UserBoundary boundary = this.convertToBoundary(entity);
             UserBoundaryEnc boundaryEnc = new UserBoundaryEnc(boundary.getEmail(),
                     boundary.getName(), boundary.getBirthdate(), boundary.getRoles());
             rv.add(boundaryEnc);
         }
-        return rv;
+        for (UserBoundaryEnc boundaryEnc : rv) {
+            if (boundaryEnc.getEmail().contains(domain))
+                ;
+            resultBySub.add(boundaryEnc);
+        }
+        return resultBySub;
+    }
+
+    public List<UserBoundaryEnc> searchByBirthYear(String year, int size, int page) {
+        Iterable<UserEntity> entities = this.serviceHandler.findAll();
+        List<UserBoundaryEnc> rv = new ArrayList<>();
+        List<UserBoundaryEnc> resultBySub = new ArrayList<>();
+        for (UserEntity entity : entities) {
+            UserBoundary boundary = this.convertToBoundary(entity);
+            UserBoundaryEnc boundaryEnc = new UserBoundaryEnc(boundary.getEmail(),
+                    boundary.getName(), boundary.getBirthdate(), boundary.getRoles());
+            rv.add(boundaryEnc);
+        }
+        for (UserBoundaryEnc boundaryEnc : rv) {
+            if (boundaryEnc.getBirthdate().contains(year))
+                ;
+            resultBySub.add(boundaryEnc);
+        }
+        return resultBySub;
     }
 
 }

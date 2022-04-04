@@ -1,7 +1,5 @@
 package demo;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,19 +30,32 @@ public class UserController {
         return userService.login(email);
     }
 
+    @RequestMapping(path = "/customers/search?criteriaType=byEmailDomain&criteriaValue={value}&size={size}&page={page}&sortBy={sortAttribute}&sortOrder={order}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object getAllUsersByEmailDomain(
+            @RequestParam(name = "value", required = false, defaultValue = "afeka") String domain,
+            @RequestParam(name = "size", required = false, defaultValue = "20") int size,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "sortAttribute", required = false, defaultValue = "email") String sortAttribute,
+            @RequestParam(name = "order", required = false, defaultValue = "ASC") String order) {
+        // get all Items
+        String attr = "byEmailDomain";
+        Object obj = this.userService.getAllUsersByAttr(attr, size, page);
+
+        return obj;
+    }
+
     @RequestMapping(path = "/customers/search?criteriaType=byBirthYear&criteriaValue={value}&size={size}&page={page}&sortBy={sortAttribute}&sortOrder={order}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserBoundary[] getAllUsersByYear(
+    public Object getAllUsersByYear(
             @RequestParam(name = "value", required = false, defaultValue = "2020") String year,
             @RequestParam(name = "size", required = false, defaultValue = "20") int size,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "sortAttribute", required = false, defaultValue = "email") String sortAttribute,
             @RequestParam(name = "order", required = false, defaultValue = "ASC") String order) {
         // get all Items
+        String attr = "byBirthYear";
+        Object obj = this.userService.getAllUsersByAttr(attr, size, page);
 
-        List<UserBoundaryEnc> boundaries = this.userService.getAllUsersByYear(year, size, page);
-
-        return boundaries
-                .toArray(new UserBoundary[0]);
+        return obj;
     }
 
 }
